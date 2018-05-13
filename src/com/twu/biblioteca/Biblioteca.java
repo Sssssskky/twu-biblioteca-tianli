@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Biblioteca {
     private BookList BookList;
-
+    private MovieList MovieList;
+    private UserList UserList;
     private ArrayList<String> Menu = new ArrayList<String>();
 
     public Biblioteca() {
@@ -19,8 +20,10 @@ public class Biblioteca {
         this.BookList = new BookList(list);
     }
 
-    public Biblioteca(ArrayList<Book> list) {
-        this.BookList = new BookList(list);
+    public Biblioteca(ArrayList<Book> books, ArrayList<Movie> movies, ArrayList<User> users) {
+        this.BookList = new BookList(books);
+        this.MovieList = new MovieList(movies);
+        this.UserList = new UserList(users);
         this.Menu.add("List Books");
     }
 
@@ -30,6 +33,13 @@ public class Biblioteca {
 
     public String ListBooks(){
         return this.BookList.toShortDetails();
+    }
+    public String ListMovies(){
+        return this.MovieList.toString();
+    }
+
+    public Boolean Login(String name, String password){
+        return this.UserList.verify(name,password);
     }
 
     public String BookDetails(){
@@ -54,13 +64,26 @@ public class Biblioteca {
         return "Quit!";
     }
 
-    public String CheckOut(String title){
+    public String CheckOutBook(String title){
         if(this.BookList.CheckOut(title)){
             return "Thank you! Enjoy the book";
         }
         else{
             return "That book is not available";
         }
+    }
+
+    public String CheckOutMovie(String title){
+        if(this.MovieList.CheckOut(title)){
+            return "Thank you! Enjoy the movie";
+        }
+        else{
+            return "That movie is not available";
+        }
+    }
+
+    public String UserInfo(){
+        return this.UserList.UserInfo();
     }
 
     public String Return(String title){
